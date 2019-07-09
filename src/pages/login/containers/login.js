@@ -29,6 +29,7 @@ class Login extends React.Component {
     }
 
     onLogin = () => {
+        console.log(this.state.user)
         console.log('llegue')
         apiController.post('login', this.state.user)
             .then((response) => response.json())
@@ -59,8 +60,7 @@ class Login extends React.Component {
                 });
         });
 
-        console.log("sdsds", responseJson.user.persona.es_empleado)
-        console.log("sdsds", responseJson.user.persona.es_cliente)
+        this.props.add(responseJson);
 
         if (responseJson.user.persona.es_empleado && !responseJson.user.persona.es_cliente) {
             this.props.navigation.replace('Home')
@@ -69,7 +69,7 @@ class Login extends React.Component {
         if (!responseJson.user.persona.es_empleado && responseJson.user.persona.es_cliente) {
             this.props.navigation.replace('Home')
         }
-        this.props.add(responseJson);
+
 
     }
 
@@ -297,18 +297,22 @@ class Login extends React.Component {
 const styles = StyleSheet.create({
     logoContainer: {
         justifyContent: 'center',
+        flex: 1,
         alignItems: 'center',
         height: hp('30')
     },
     buttonsContainer: {
+        flex: 1,
         flexDirection: 'row'
     },
     loginContainer: {
+        flex: 1,
         backgroundColor: '#2E4056',
         paddingHorizontal: wp('8'),
         paddingTop: hp('7.5'),
     },
     signContainer: {
+        flex: 1,
         backgroundColor: '#407BFC',
         paddingHorizontal: wp('8'),
         paddingTop: hp('7.5'),

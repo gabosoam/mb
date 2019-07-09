@@ -1,6 +1,6 @@
 
 
-const urlApi = 'http://192.168.0.106:1337/';
+const urlApi = 'http://192.168.0.105:1337/';
 
 export default {
     get: (url) => {
