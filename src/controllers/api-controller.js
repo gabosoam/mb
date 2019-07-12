@@ -1,6 +1,6 @@
 
 
-const urlApi = 'http://192.168.0.105:1337/';
+const urlApi = 'https://eficar.herokuapp.com/';
 
 export default {
     get: (url) => {
