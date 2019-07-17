@@ -8,6 +8,9 @@ import Login from './src/pages/login/containers/login'
 import { fromRight, fromBottom, fadeIn } from 'react-navigation-transitions';
 import Chat from './src/pages/chat/chat';
 import Videochat from './src/pages/videochat/videochat';
+import Cliente from './src/pages/Cliente/cliente';
+import Tareas from './src/pages/Cliente/tareas';
+
 
 const handleCustomTransition = ({ scenes }) => {
 
@@ -51,6 +54,9 @@ const AppNavigator = createStackNavigator(
     Home: {
       screen: Home
     },
+    Tareas: {
+      screen: Tareas
+    },
 
     Login: {
       screen: Login
@@ -61,6 +67,9 @@ const AppNavigator = createStackNavigator(
     Videochat: {
       screen: Videochat
     },
+    Cliente: {
+      screen: Cliente
+    }
   },
   {
     initialRouteName: "Login",

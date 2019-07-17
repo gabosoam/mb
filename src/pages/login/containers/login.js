@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View, TouchableOpacity, Text, TextInput, Alert, StatusBar, StyleSheet } from 'react-native'
+import { Image, View, TouchableOpacity, Text, TextInput, Alert, StyleSheet, StatusBar } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import AutoHeightImage from 'react-native-auto-height-image';
@@ -18,10 +18,10 @@ class Login extends React.Component {
         super(props);
         this.state = {
             selected: 0,
-            user: { email: 'gasalazaror@gmail.com', password: '12345' }
+            user: { email: 'gasalazaror5@gmail.com', password: '12345' }
         }
 
-        props.user.token ? this.props.navigation.replace('Home') : console.log('');
+        props.user.token ? this.props.navigation.navigate('Cliente') : console.log('');
     }
 
     componentDidMount() {
@@ -67,7 +67,7 @@ class Login extends React.Component {
         }
 
         if (!responseJson.user.persona.es_empleado && responseJson.user.persona.es_cliente) {
-            this.props.navigation.replace('Home')
+            this.props.navigation.navigate('Cliente')
         }
 
 
@@ -78,11 +78,12 @@ class Login extends React.Component {
 
             <View>
                 <View style={styles.loginContainer}>
-                    <Text style={{ fontFamily: 'Roboto-Medium', fontSize: hp('3'), color: '#FFFFFF' }}>INGRESA TUS DATOS:</Text>
+                    <Text style={{ fontFamily: 'Roboto-Medium', fontSize: hp('3'), color: '#282C40' }}>INGRESA TUS DATOS:</Text>
 
                     <View style={{ paddingVertical: hp('3') }}>
                         <Input
                             containerStyle={{ backgroundColor: '#ffffff', borderRadius: wp('2') }}
+                            inputContainerStyle={{ borderBottomWidth: 0 }}
                             value={this.state.user.email}
                             onChangeText={(value) => this.setState({ user: { email: value, password: this.state.user.password } })}
                             placeholder='Correo electrónico'
@@ -93,9 +94,10 @@ class Login extends React.Component {
                         />
                     </View>
 
-                    <View style={{ paddingBottom: hp('7.5') }}>
+                    <View style={{ paddingBottom: hp('4') }}>
                         <Input
                             containerStyle={{ backgroundColor: '#ffffff', borderRadius: wp('2') }}
+                            inputContainerStyle={{ borderBottomWidth: 0 }}
                             value={this.state.user.password}
                             onChangeText={(value) => this.setState({ user: { password: value, email: this.state.user.email } })}
                             textContentType='password'
@@ -106,73 +108,31 @@ class Login extends React.Component {
                         />
                     </View>
 
-                    <View style={{ alignItems: 'center', paddingBottom: hp('7.5') }}>
-                        <Text style={{ fontFamily: 'Roboto', fontSize: hp(2.5), color: '#34D6B7' }}>OLVIDASTE TU CONTRASEÑA?</Text>
-                    </View>
-
-
-                </View>
-
-                <Button
-                    onPress={() => this.onLogin()}
-                    buttonStyle={{ width: wp('100'), height: hp('7.7'), backgroundColor: '#407BFC', borderRadius: 0 }}
-                    titleStyle={{ fontFamily: 'Roboto', marginRight: wp('2'), fontSize: hp('3'), color: '#ffffff' }}
-
-                    title="CONTINUAR"
-                    iconContainerStyle={{ marginLeft: wp('2'), }}
-                    iconRight={true}
-                    icon={
-                        <Icon
-                            name="arrow-right"
-
-                            size={15}
-                            color="white"
-                        />
-                    }
-                    type="outline"
-                />
-
-
-
-            </View>
-
-        )
-    }
-
-    renderSignIn = () => {
-        return (
-
-            <View>
-                <View style={styles.signContainer}>
-                    <Text style={{ fontFamily: 'Roboto-Medium', fontSize: hp('3'), color: '#FFFFFF' }}>CREA TU CUENTA:</Text>
-
-                    <View style={{ paddingVertical: hp('3') }}>
-                        <Input
-                            containerStyle={{ backgroundColor: '#ffffff', borderRadius: wp('2') }}
-                            placeholder='mtuerca2@hotmail.com'
-                        />
-                    </View>
-
-                    <View style={{ paddingBottom: hp('7.5') }}>
-                        <Input
-                            containerStyle={{ backgroundColor: '#ffffff', borderRadius: wp('2') }}
-                            placeholder='XXXXXX'
-                        />
-                    </View>
-
                     <View style={{ alignItems: 'center' }}>
-
                         <Button
-                            title={'ENVIAR'}
-                            containerStyle={{ width: wp('23'), height: hp('6.5'), paddingBottom: hp('30') }}
-                            buttonStyle={{ backgroundColor: '#D43539', width: wp('23'), height: hp('8'), borderRadius: wp('2') }}
-                            titleStyle={{ fontSize: hp('2.5'), fontFamily: 'Roboto-Medium', }}
+                            onPress={() => this.onLogin()}
+                            buttonStyle={{ width: wp('65'), paddingBottom: hp('4'), borderRadius: wp(2.5), height: hp('7.7'), backgroundColor: '#407BFC' }}
+                            titleStyle={{ fontFamily: 'Roboto', marginRight: wp('2'), fontSize: hp('3'), color: '#ffffff' }}
+                            containerStyle={{ paddingBottom: hp('4') }}
+                            title="CONTINUAR"
+                            iconContainerStyle={{ marginLeft: wp('2'), }}
+                            buttonStyle={{ backgroundColor: '#282C40', borderRadius: wp(2.5), width: wp(75) }}
+                            iconRight={true}
+                            icon={
+                                <Icon
+                                    name="arrow-right"
+
+                                    size={15}
+                                    color="white"
+                                />
+                            }
+                            type="outline"
                         />
-
-
-
                     </View>
 
+                    <View style={{ alignItems: 'center', paddingBottom: hp('25') }}>
+                        <Text style={{ fontFamily: 'Roboto', fontSize: hp(2.5), color: '#282C40' }}>OLVIDASTE TU CONTRASEÑA?</Text>
+                    </View>
 
 
                 </View>
@@ -185,110 +145,24 @@ class Login extends React.Component {
 
         )
     }
+
+
 
     render() {
         return (
 
             <View>
+                <StatusBar backgroundColor="#282C40" barStyle="light-content" />
                 <ScrollView>
                     <View style={styles.logoContainer}>
                         <AutoHeightImage width={wp('54')} source={require('../../../../assets/images/logo.png')} ></AutoHeightImage>
                     </View>
-                    <View style={styles.buttonsContainer}>
-                        <Button
-                            onPress={() => this.setState({ selected: 0 })}
-                            buttonStyle={{ width: wp('50'), height: hp('7'), borderBottomWidth: 0 }}
-                            titleStyle={{ fontFamily: 'Roboto', fontSize: hp('3'), color: this.state.selected == 0 ? '#2E4056' : '#959DAD' }}
-                            title="Login"
-                            type="outline"
-                        />
 
-                        <Button
-                            onPress={() => this.setState({ selected: 1 })}
-                            buttonStyle={{ width: wp('50'), height: hp('7'), borderBottomWidth: 0 }}
-                            titleStyle={{ fontFamily: 'Roboto', fontSize: hp('3'), color: this.state.selected == 1 ? '#2E4056' : '#959DAD' }}
-                            title="Registrarse"
-                            type="outline"
-                        />
-
-                    </View>
-
-                    <View style={styles.buttonsContainer}>
-
-                        {
-                            this.state.selected == 0 ?
-
-                                <View style={{ width: wp('50'), flexDirection: 'row' }}>
-                                    <View style={{ height: hp('1.15'), width: wp('12.5'), backgroundColor: '#665EFF' }}>
-
-                                    </View>
-
-                                    <View style={{ height: hp('1.15'), width: wp('12.5'), backgroundColor: '#5773FF' }}>
-
-                                    </View>
-
-                                    <View style={{ height: hp('1.15'), width: wp('12.5'), backgroundColor: '#3497FD' }}>
-
-                                    </View>
-                                    <View style={{ height: hp('1.15'), width: wp('12.5'), backgroundColor: '#3ACCE1' }}>
-
-                                    </View>
-
-                                </View> :
-
-                                <View style={{ width: wp('50'), flexDirection: 'row' }}>
-
-                                </View>
-
-                        }
-
-                        {
-                            this.state.selected == 1 ?
-
-                                <View>
-
-                                    <View style={{ width: wp('50'), flexDirection: 'row' }}>
-
-                                    </View>
-
-                                    <View style={{ width: wp('50'), flexDirection: 'row' }}>
-                                        <View style={{ height: hp('1.15'), width: wp('12.5'), backgroundColor: '#665EFF' }}>
-
-                                        </View>
-
-                                        <View style={{ height: hp('1.15'), width: wp('12.5'), backgroundColor: '#5773FF' }}>
-
-                                        </View>
-
-                                        <View style={{ height: hp('1.15'), width: wp('12.5'), backgroundColor: '#3497FD' }}>
-
-                                        </View>
-                                        <View style={{ height: hp('1.15'), width: wp('12.5'), backgroundColor: '#3ACCE1' }}>
-
-                                        </View>
-
-                                    </View>
-
-                                </View>
-
-
-
-                                : null
-
-                        }
-                    </View>
 
                     {
-                        this.state.selected == 0 ? this.renderLogin() : this.renderSignIn()
+                        this.renderLogin()
                     }
                 </ScrollView>
-
-
-
-
-
-
-
             </View>
         )
     }
@@ -299,7 +173,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flex: 1,
         alignItems: 'center',
-        height: hp('30')
+        height: hp('30'),
+        backgroundColor: '#282C40'
     },
     buttonsContainer: {
         flex: 1,
@@ -307,7 +182,7 @@ const styles = StyleSheet.create({
     },
     loginContainer: {
         flex: 1,
-        backgroundColor: '#2E4056',
+        backgroundColor: '#F2B544',
         paddingHorizontal: wp('8'),
         paddingTop: hp('7.5'),
     },

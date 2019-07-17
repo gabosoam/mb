@@ -9,7 +9,9 @@ import CircularProgress from './ciurcular';
 import ProgressCircle from 'react-native-progress-circle'
 import api from '../../controllers/api-controller'
 
+
 import 'moment/locale/es'
+import Header from '../home/components/header';
 moment.locale('es')
 
 class Finalizadas extends React.Component {
@@ -144,9 +146,10 @@ class Finalizadas extends React.Component {
         return (
             <Card
                 titleNumberOfLines={1}
+                featuredTitleStyle={{ backgroundColor: '#F2B544' }}
 
                 title={item.producto}
-                containerStyle={{ borderRadius: widthPercentageToDP('4') }}>
+                containerStyle={{ borderRadius: widthPercentageToDP('4'), }}>
 
                 <TouchableOpacity onPress={() => this.setState({ seleccionado: this.state.seleccionado == index ? -1 : index })}>
                     <View style={{ flexDirection: 'row', }}>
@@ -156,14 +159,14 @@ class Finalizadas extends React.Component {
                         </View>
                         <View style={{ alignItems: 'center', justifyContent: 'center', width: widthPercentageToDP('50') }}>
                             <ProgressCircle
-                                percent={30}
+                                percent={item.eficiencia}
                                 radius={widthPercentageToDP('10')}
                                 borderWidth={8}
-                                color="#FF4861"
+                                color={item.eficiencia >= 100 ? "#038C65" : "#FF4861"}
                                 shadowColor="#EBEDF0"
                                 bgColor="#fff"
                             >
-                                <Text style={{ fontSize: 18 }}>{'30%'}</Text>
+                                <Text style={{ fontSize: 18 }}>{+item.eficiencia + '%'}</Text>
                             </ProgressCircle>
                         </View>
 
@@ -220,16 +223,20 @@ class Finalizadas extends React.Component {
 
     render() {
         return (
-            <View style={{ backgroundColor: '#EBEDF0', height: '100%' }}>
-                <FlatList
-                    extraData={this.state}
-                    onRefresh={() => this.onRefresh()}
-                    refreshing={this.state.isFetching}
-                    renderItem={(item, index) => this.renderItem(item, index)}
-                    data={this.state.data}
-                    keyExtractor={(item, index) => item + index}
-                />
+            <View>
+                <Header title="TAREAS FINALIZADAS" />
+                <View style={{ backgroundColor: '#EBEDF0', height: '100%' }}>
+                    <FlatList
+                        extraData={this.state}
+                        onRefresh={() => this.onRefresh()}
+                        refreshing={this.state.isFetching}
+                        renderItem={(item, index) => this.renderItem(item, index)}
+                        data={this.state.data}
+                        keyExtractor={(item, index) => item + index}
+                    />
+                </View>
             </View>
+
         );
     }
 }

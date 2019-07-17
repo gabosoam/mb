@@ -12,7 +12,7 @@ import Header from '../home/components/header';
 import 'moment/locale/es'
 moment.locale('es')
 
-class Produccion extends React.Component {
+class Tarea extends React.Component {
 
     constructor(props) {
         super(props)
@@ -27,7 +27,8 @@ class Produccion extends React.Component {
     }
 
     getData = () => {
-        apiController.get('asignacion/vistalist?usuario=' + this.props.user.user.persona.id)
+        console.log(this.props.user.user.persona.id)
+        apiController.get('asignacion/vistalistcliente?usuario=' + this.props.user.user.persona.id)
             .then((response) => response.json())
             .then((responseJson) => {
 
@@ -41,7 +42,7 @@ class Produccion extends React.Component {
                 });
 
                 this.setState({
-                    data: responseJson.filter(item => item.estado == 1),
+                    data: responseJson,
                     isFetching: false
                 })
 
@@ -133,7 +134,6 @@ class Produccion extends React.Component {
             .then((response) => response.json())
             .then((responseJson) => {
                 console.log(responseJson)
-                this.getData()
              
             })
             .catch((error) => {
@@ -255,4 +255,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Produccion)
+export default connect(mapStateToProps, mapDispatchToProps)(Tarea)

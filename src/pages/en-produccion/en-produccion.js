@@ -7,7 +7,7 @@ import { ListItem, Card, Slider, Button } from 'react-native-elements'
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import CircularProgress from './ciurcular';
 import ProgressCircle from 'react-native-progress-circle'
-
+import Header from '../home/components/header';
 
 class Produccion extends React.Component {
 
@@ -342,6 +342,7 @@ class Produccion extends React.Component {
     render() {
         return (
             <View style={{ backgroundColor: '#EBEDF0', height: '100%' }}>
+                 <Header title="TAREAS EN PRODUCCIÓN" />
                 <FlatList
                     extraData={this.state}
                     onRefresh={() => this.onRefresh()}
